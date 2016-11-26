@@ -2,9 +2,9 @@
 
 #### Overview
 
-This second project is your first foray into **building a full-stack application.** You'll be **building a Rails app,** which means you'll learn about what it takes to build a functional application from the ground up yourself.
+This second project is your first foray into **building a full-stack application.** You'll be **building a Node app,** which means you'll learn about what it takes to build a functional application from the ground up yourself.
 
-**This is exciting!** It's a lot, but we'll give you the tools over the next few weeks to be able build what you need, and you get to decide what you do with it. And you get to be creative in choosing what sort of application you want to build!
+**This is exciting!** It's a lot, but we'll give you the tools over the next couple weeks to be able build what you need, and you get to decide what you do with it. And you get to be creative in choosing what sort of application you want to build!
 
 **You will be working individually for this project**, and you'll be designing the app yourself. We hope you'll exercise creativity on this project, sketch some wireframes before you start, and write user stories to define what your users will want to do with the app. Make sure you have time to run these ideas by your instructors to get their feedback before you dive too deep into code! Remember to keep things small and focus on mastering the fundamentals – scope creep/feature creep is the biggest pitfall for any project!
 
@@ -16,8 +16,8 @@ Your app must:
 
 * **Have at _least_ 2 models** (more if they make sense) – one representing someone using your application, and one that represents the main functional idea for your app
 * **Include sign up/log in functionality**, with encrypted passwords & an authorization flow
-* **Have complete RESTful routes** for at least one of your resources with GET, POST, PUT, PATCH, and DELETE
-* **Utilize an ORM to create a database table structure** and interact with your relationally-stored data
+* **Have complete RESTful routes** for at least one of your resources with GET, POST, PUT, and DELETE
+* **Utilize Mongo to create a database structure** and interact with your JSON-like data
 * **Include wireframes** that you designed during the planning process
 * Have **semantically clean HTML and CSS**
 * **Be deployed online** and accessible to the public
@@ -31,7 +31,7 @@ Your app must:
 * A **git repository hosted on GitHub**, with a link to your hosted project,  and frequent commits dating back to the **very beginning** of the project. Commit early, commit often.
 * **A ``readme.md`` file** with explanations of the technologies used, the approach taken, installation instructions, unsolved problems, etc.
 * **Wireframes of your app**, hosted somewhere & linked in your readme
-* A link in your ``readme.md`` to the publically-accessible **user stories you created**
+* A link in your ``readme.md`` to the publicly-accessible **user stories you created**
 
 ---
 
