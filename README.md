@@ -15,6 +15,7 @@ This second project is your first foray into **building a full-stack application
 Your app must:
 
 * **Have at _least_ 2 models** (more if they make sense) – one representing someone using your application, and one that represents the main functional idea for your app
+* **Have at _least_ 2 software unit tests** using Mocha and Chai
 * **Include sign up/log in functionality**, with encrypted passwords & an authorization flow
 * **Have complete RESTful routes** for at least one of your resources with GET, POST, PUT, and DELETE
 * **Utilize Mongo to create a database structure** and interact with your JSON-like data
