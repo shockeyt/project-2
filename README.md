@@ -75,7 +75,7 @@ Users will be able to register and create albums and photos. Albums and photos w
 
 #### Project Feedback + Evaluation
 
-Based on the requirements you can earn a maximum of 48 points on this project. Your instructors will score each of your requirements below using this scale:
+There are several requirements in the Project 2 rubric. Your instructors will score each of your requirements below using this scale:
 
     Score | Expectations
     ----- | ------------
