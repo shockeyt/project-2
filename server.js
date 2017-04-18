@@ -1,116 +1,41 @@
 //setting up Express
 var express = require('express');
 var app = express();
-var db = require('./models');
-//setting up bodyparser
+var passport     = require('passport');
+var flash        = require('connect-flash');
+var morgan       = require('morgan');
+var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session      = require('express-session');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(morgan('dev')); 
+app.use(cookieParser());
 
+app.set('views', './views');
+app.engine('ejs', require('ejs').renderFile);
+app.set('view engine', 'ejs');
 
-//hardcode test data
+app.use(express.static(__dirname + '/public'));
 
-// var test = [
-// {
-// 	artist: "Spoon",
-// 	track: "Fitted Shirt",
-// 	album: "Kill the Moonlight"
-// },
-// {
-// 	artist: "Autlux",
-// 	track: "Sugarless",
-// 	album: "Future Perfect"
-// },
-// {
-// 	artist: "Pixies",
-// 	track: "Wave of Mutilation",
-// 	album: "Doolittle"
-// },
-// {
-// 	artist: "Interpol",
-// 	track: "PDA",
-// 	album: "Turn on the Bright Lights"
-// },
-// ];
+app.use(session({ secret: 'WDI-GENERAL-ASSEMBLY-EXPRESS' })); 
+app.use(passport.initialize());
+app.use(passport.session()); 
+app.use(flash()); 
 
+require('./config/passport')(passport);
 
-
-app.get('/', function (req, res) {
-	res.json({message: 'hello world'});
-});
-
-//*****REST ROUTES******
-
-//show all artists
-app.get('/api/artists', function (req, res) {
-	db.Artist.find()
-	.exec(function (err, artists) {
-		if (err) { return console.log("index error: " + err); }
-		res.json(artists);
-	});
-});
-
-//show one artist
-app.get('/api/artists/:id', function (req, res) {
-	db.Artist.findOne({_id: req.params.id}, function(err, artist) {
-		res.json(artist);
-	});
-});
-
-//create new artist
-app.post('/api/artists', function (req, res) {
-	var newArtist = new db.Artist({
-		artist: req.body.artist,
-		track: req.body.track,
-		album: req.body.album
-	});
-	newArtist.save(function(err, artist) {
-		if (err) {
-			return console.log("save error: " + err);
-		}
-		console.log("saved ", artist.artist);
-		res.json(artist);
-	});
-});
-
-//update artist
-app.put('/api/artists/:id', function (req, res) {
-
-	var id = req.params.id;
-
-	db.Artist.findOne({_id: id}, function(err, artist) {
-		if (err) res.json({message: 'find error: ' + err});
-		if (req.body.name) artist.artist = req.body.artist;
-		if (req.body.track) artist.track = req.body.track;
-		if (req.body.album) artist.album = req.body.album;
-
-		artist.save(function(err) {
-			if (err) res.json({message: 'could not update'});
-			res.json({message: 'artist updated'});
-		});
-	});
-});
-
-//delete artist
-app.delete('/api/artists/:id', function (req, res) {
-	var id = req.params.id;
-	db.Artist.findOneAndRemove({_id: id}, function(err, deletedArtist) {
-		console.log("deleted ", id);
-		res.json(deletedArtist);
-	});
+app.use(function (req, res, next) {
+	res.locals.currentUser = req.user;
+	next();
 });
 
 
 
-
-
-//HARD CODED TESTS
-//show index
-
-// app.get('/api/artists', function artistIndex(req, res) {
-// 	res.json({test : test});
-// });
-
+//require routes
+var routes = require('./config/routes');
+app.use(routes);
 
 //SERVER
 //Listening on port 3000
