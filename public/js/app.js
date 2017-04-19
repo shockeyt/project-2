@@ -48,6 +48,28 @@ app.searchArtist = function(id) {
 	});
 };
 
+app.searchAlbums = function(oneAlbum) {
+	//gets album tracks
+	$.ajax({
+		url: "https://api.spotify.com/v1/albums/" + oneAlbum + "/tracks",
+		method: "GET",
+		dataType: "json",
+		success: albumSuccess,
+		error: albumError
+	});
+};
+
+//track data from album
+function albumSuccess(json) {
+	var trackData = json;
+	console.log("track data is: ", trackData);
+}
+
+function albumError(e) {
+	console.log("search albums not working");
+}
+
+
 //album data from artist
 function searchSuccess(json) {
 	albumData = json;
@@ -58,7 +80,10 @@ function searchSuccess(json) {
 		albumIds.push(items.id);
 		//console.log(albumIds);
 	});
-	console.log(albumIds);
+	//***NOTE:Spotify won't allow multiple album tracks
+	//console.log(albumIds);
+	var oneAlbum = albumIds[0];
+	app.searchAlbums(oneAlbum);
 }
 
 function searchError(e) {
@@ -69,7 +94,7 @@ function searchError(e) {
 function handleSuccess(json) {
 	artistData = json;
 	id = json.artists.items[0].id;
-	console.log(artistData);
+	//console.log(artistData);
 	console.log(id);
 	app.searchArtist(id);
 }
