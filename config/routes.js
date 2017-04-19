@@ -36,6 +36,8 @@ router.route("/logout")
 
 router.route('/songify')
   .get(staticsController.appPage);
+  //login to access this page
+  //.get(authenticatedUser, staticsController.appPage);
 
 
 // router.get('/', function (req, res) {
