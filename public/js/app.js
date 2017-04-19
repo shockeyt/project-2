@@ -34,8 +34,8 @@ app.init = function () {
 };
 //});
 
+//gets artist albums
 app.searchArtist = function(id) {
-			//gets artist albums
 	$.ajax({
 		url: "https://api.spotify.com/v1/artists/" + id + "/albums",
 		method: "GET",
@@ -48,8 +48,8 @@ app.searchArtist = function(id) {
 	});
 };
 
+//gets album tracks
 app.searchAlbums = function(oneAlbum) {
-	//gets album tracks
 	$.ajax({
 		url: "https://api.spotify.com/v1/albums/" + oneAlbum + "/tracks",
 		method: "GET",
@@ -59,10 +59,32 @@ app.searchAlbums = function(oneAlbum) {
 	});
 };
 
-//track data from album
+//generate a playlist
+app.generatePlaylist = function(songIds) {
+	//var baseUrl = "https://embed.spotify.com/?theme=white&uri=spotify:trackset:My Playlist:";
+	//$('.playlist').css("background-color", "blue");
+	//$('.playlist').append('iframe src="' + (baseUrl + songIds) + '" height="400"></iframe>');
+
+	//$('.playlist').append('<iframe src="https://open.spotify.com/embed?uri=spotify:trackset:My Playlist:' + songIds + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>');
+	const baseUrl = 'https://embed.spotify.com/?theme=white&uri=spotify:trackset:My Playlist:';
+	$('.playlist').append(`<iframe src="${baseUrl + songIds}" height="400"></iframe>`);
+};
+
+//tracks from album
 function albumSuccess(json) {
 	var trackData = json;
 	console.log("track data is: ", trackData);
+	var trackItems = json.items;
+	console.log("track data items are ", trackItems);
+	var trackIds = [];
+	trackItems.forEach(function(tracks) {
+		trackIds.push(tracks.id);
+		//console.log(tracks.id);
+		//songIds = tracks.id + "," + songIds;
+	});
+	var songIds = trackIds.toString();
+	console.log("track IDs are: ", songIds);
+	app.generatePlaylist(songIds);
 }
 
 function albumError(e) {
