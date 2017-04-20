@@ -18,7 +18,7 @@ app.init = function () {
 		var artist = $('input[type=search').val();
 		console.log(artist);
 
-		app.getArtist(artist);
+		app.getArtist(artist, "album");
 	});
 
 	$('#button2').on('click', function(e) {
@@ -54,7 +54,7 @@ app.init = function () {
 // 	});
 // };
 
-app.getArtist = function(artist) {
+app.getArtist = function(artist, type) {
 	$.ajax({
 		method: "GET",
 		url: "/songify/" + artist
@@ -65,9 +65,16 @@ app.getArtist = function(artist) {
 	}).done(function(data) {
 		console.log(data.artistId);
 		id = data.artistId;
-		app.searchArtist(id);
+		if (type == "topten") {
+			app.getTopTen(id);
+		} else if (type == "album") {
+			app.searchArtist(id);
+		}
+		
+		
 	});
 };
+
 
 //gets artist albums
 app.searchArtist = function(id) {
@@ -122,6 +129,26 @@ function albumSuccess(json) {
 	console.log("track IDs are: ", songIds);
 	app.generatePlaylist(songIds);
 }
+
+//gets artist top ten tracks
+app.getTopTen = function(id) {
+	$.ajax({
+		url: "https://api.spotify.com/v1/artists/" + id + "/top-tracks?country=ES",
+		method: "GET",
+		dataType: "json"
+	}).done(function(data) {
+		console.log(data.tracks);
+		var tenTracks = data.tracks;
+		var trackIds = [];
+		tenTracks.forEach(function(tracks) {
+			trackIds.push(tracks.id);
+		});
+		var songIds = trackIds.toString();
+		console.log("top 10 ids are: ", songIds);
+		app.generatePlaylist(songIds);
+
+	});
+};
 
 function albumError(e) {
 	console.log("search albums not working");
