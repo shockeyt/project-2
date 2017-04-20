@@ -1,5 +1,5 @@
 var request = require('request');
-
+var db = require('../models');
 // app.getArtist = function(artist, type) {
 // 	$.ajax({
 // 		url: "https://api.spotify.com/v1/search",
@@ -24,11 +24,35 @@ function getArtistIds (req, res) {
 		console.log('error: ', error);
 		console.log('statusCode:', response && response.statusCode);
 		var parseBody = JSON.parse(body);
+		console.log(parseBody.artists.items[0]);
 		id = {artistId: parseBody.artists.items[0].id};
 		console.log(parseBody.artists.items[0].id);
 		console.log(id);
 		res.json(id);
 	});
+}
+
+function postArtistIds (req, res) {
+	var artist = req.params.artist;
+	request("https://api.spotify.com/v1/search?q=" + artist + "&type=artist", function(error, response, body) {
+		console.log('error: ', error);
+		console.log('statusCode:', response && response.statusCode);
+		var parseBody = JSON.parse(body);
+		var newSearch = new db.Search({
+			name: parseBody.artists.items[0].name,
+			id: parseBody.artists.items[0].id,
+			genres: parseBody.artists.items[0].genres
+		});
+		newSearch.save(function (err, search){
+			if (err) {
+				return console.log("save error: ", err);
+			}
+			console.log("saved", search);
+			//res.json(search);
+		});
+
+	});
+	
 }
 
 
@@ -37,8 +61,7 @@ function getArtistIds (req, res) {
 
 
 
-
 module.exports = {
-  getArtistIds: getArtistIds
-
+  getArtistIds: getArtistIds,
+  postArtistIds: postArtistIds
 };

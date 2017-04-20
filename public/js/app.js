@@ -29,6 +29,15 @@ app.init = function () {
 
 		app.getArtist(artist, "topten");
 	});
+
+	$('#button3').on('click', function(e) {
+		e.preventDefault();
+		//console.log("topten button clicked");
+		var artist = $('input[type=search').val();
+		console.log(artist);
+
+		app.getArtist(artist, "related");
+	});
 };
 
 //app.topTen = function () {
@@ -69,9 +78,21 @@ app.getArtist = function(artist, type) {
 			app.getTopTen(id);
 		} else if (type == "album") {
 			app.searchArtist(id);
+		} else if (type == "related") {
+			app.relatedArtists(id);
 		}
 		
 		
+	});
+	$.ajax({
+		method: "POST",
+		url: "/songify/" + artist
+	}).done(function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log("post successful");
+		}
 	});
 };
 
@@ -130,8 +151,11 @@ function albumSuccess(json) {
 	app.generatePlaylist(songIds);
 }
 
+var compileTracks = [];
+
+//var compileSingles = [];
 //gets artist top ten tracks
-app.getTopTen = function(id) {
+app.getTopTen = function(id, type) {
 	$.ajax({
 		url: "https://api.spotify.com/v1/artists/" + id + "/top-tracks?country=ES",
 		method: "GET",
@@ -140,13 +164,49 @@ app.getTopTen = function(id) {
 		console.log(data.tracks);
 		var tenTracks = data.tracks;
 		var trackIds = [];
+		//var compileTracks = [];
+		if (type == "related") {
+			console.log("related condition hit");
+			tenTracks.forEach(function(tracks) {
+				compileTracks.push(tracks.id);
+				// compileSingles.forEach(function(singles) {
+				// compileTracks.push(trackIds[0]);
+				// });
+			
+			});
+			//var songIds = trackIds.toString();
+			//console.log("compiled ids are: ", compileTracks);
+		} else {
+
 		tenTracks.forEach(function(tracks) {
 			trackIds.push(tracks.id);
 		});
 		var songIds = trackIds.toString();
 		console.log("top 10 ids are: ", songIds);
-		app.generatePlaylist(songIds);
 
+		app.generatePlaylist(songIds);
+		}
+	});
+};
+
+
+app.relatedArtists = function(id) {
+	$.ajax({
+		url: "https://api.spotify.com/v1/artists/" + id + "/related-artists",
+		method: "GET",
+		dataType: "json"
+	}).done(function(data) {
+		console.log(data.artists);
+		var artistArray = data.artists;
+		var artistIds = [];
+		artistArray.forEach(function(artists) {
+			//artistIds.push(artists.id);
+			app.getTopTen(artists.id, "related");
+		});
+		console.log(compileTracks);
+		//var compileStrings = compileTracks.toString();
+		//var artistStrings = artistIds.toString();
+		//console.log(compileStrings);
 	});
 };
 

@@ -42,7 +42,7 @@ router.route('/songify')
 
 router.route('/songify/:artist')
   .get(artistsController.getArtistIds)
-
+  .post(artistsController.postArtistIds)
 
 
 // router.get('/', function (req, res) {

@@ -5,4 +5,5 @@ mongoose.connect( //process.env.MONGODB_URI ||
 				 "mongodb://localhost/songify");
 
 module.exports.Artist = require("./artist.js");
+module.exports.Search = require("./search.js");
 module.exports.User = require("./user.js");
