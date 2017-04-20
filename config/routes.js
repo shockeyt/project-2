@@ -42,8 +42,14 @@ router.route('/songify')
 
 router.route('/songify/:artist')
   .get(artistsController.getArtistIds)
-  .post(artistsController.postArtistIds)
+  //.post(artistsController.postArtistIds)
 
+router.route('/searches')
+  .get(artistsController.getSearches)
+  //.post(artistsController.postArtistIds)
+
+router.route('/searches/:id')
+  .get(artistsController.getOneSearch)
 
 // router.get('/', function (req, res) {
 // 	res.json({message: 'hello world'});

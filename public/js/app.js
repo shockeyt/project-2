@@ -84,16 +84,18 @@ app.getArtist = function(artist, type) {
 		
 		
 	});
-	$.ajax({
-		method: "POST",
-		url: "/songify/" + artist
-	}).done(function(err, data) {
-		if (err) {
-			console.log(err);
-		} else {
-			console.log("post successful");
-		}
-	});
+	// $.ajax({
+	// 	method: "POST",
+	// 	//url: "/songify/" + artist
+	// 	url: "/searches",
+	// 	data: artist
+	// }).done(function(err, data) {
+	// 	if (err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		console.log("post successful");
+	// 	}
+	// });
 };
 
 
