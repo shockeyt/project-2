@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var SearchSchema = new Schema({
 	name: String,
-	id: String,
+	trackId: String,
 	genres: [ String ]
 });
 

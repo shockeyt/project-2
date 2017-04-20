@@ -27,7 +27,7 @@ function getArtistIds (req, res) {
 
 		var newSearch = new db.Search({
 			name: parseBody.artists.items[0].name,
-			id: parseBody.artists.items[0].id,
+			trackId: parseBody.artists.items[0].id,
 			genres: parseBody.artists.items[0].genres
 		});
 		newSearch.save(function (err, search){
@@ -85,15 +85,41 @@ function getOneSearch (req, res) {
 	});
 }
 
+function postSearch (req, res) {
+	var newSearch = new db.Search({
+		name: req.body.name,
+		trackId: req.body.id,
+		genres: req.body.genres
+	});
+	newSearch.save(function(err, search) {
+		if (err) {
+			return console.log("save error: " + err);
+		}
+		console.log("saved ", search);
+		res.json(search);
+	});
+}
 
-
+function deleteSearch (req, res) {
+	var searchId = req.params.id;
+	console.log(searchId);
+	db.Search.findOneAndRemove({ _id: searchId }, function(err, deletedSearch) {
+		if (err) {
+			return console.log("delete error: " + err);
+		}
+		console.log("deleted ", searchId);
+		res.json(deletedSearch);
+	});
+}
 
 
 module.exports = {
   getArtistIds: getArtistIds,
   //postArtistIds: postArtistIds,
   getSearches: getSearches,
-  getOneSearch: getOneSearch
+  getOneSearch: getOneSearch,
+  postSearch: postSearch,
+  deleteSearch: deleteSearch
 };
 
 

@@ -47,9 +47,11 @@ router.route('/songify/:artist')
 router.route('/searches')
   .get(artistsController.getSearches)
   //.post(artistsController.postArtistIds)
+  .post(artistsController.postSearch)
 
 router.route('/searches/:id')
   .get(artistsController.getOneSearch)
+  .delete(artistsController.deleteSearch)
 
 // router.get('/', function (req, res) {
 // 	res.json({message: 'hello world'});
