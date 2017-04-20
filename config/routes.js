@@ -8,6 +8,7 @@ var methodOverride = require('method-override');
 var passport = require("passport");
 var usersController = require('../controllers/users');
 var staticsController = require('../controllers/statics');
+var artistsController = require('../controllers/artists');
 
 function authenticatedUser(req, res, next) {
 	//if user is authenticated, we continue
@@ -38,6 +39,10 @@ router.route('/songify')
   .get(staticsController.appPage);
   //login to access this page
   //.get(authenticatedUser, staticsController.appPage);
+
+router.route('/songify/:artist')
+  .get(artistsController.getArtistIds)
+
 
 
 // router.get('/', function (req, res) {

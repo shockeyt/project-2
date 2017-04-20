@@ -7,6 +7,7 @@ var albumData = {};
 //$(document).ready(function() {
 	//console.log("app.js loaded!");
 
+
 app.init = function () {
 	$('form').on('submit', function(e) {
 		e.preventDefault();
@@ -17,22 +18,56 @@ app.init = function () {
 		var artist = $('input[type=search').val();
 		console.log(artist);
 
-		//gets matching artists
-		$.ajax({
-			url: "https://api.spotify.com/v1/search",
-			method: "GET",
-			dataType: "json",
-			data: {
-				type: 'artist',
-				q: artist
-			},
-			success: handleSuccess,
-			error: handleError
-		});
+		app.getArtist(artist);
+	});
 
+	$('#button2').on('click', function(e) {
+		e.preventDefault();
+		//console.log("topten button clicked");
+		var artist = $('input[type=search').val();
+		console.log(artist);
+
+		app.getArtist(artist, "topten");
 	});
 };
+
+//app.topTen = function () {
+
+		//e.preventDefault();
+		
+
+//};
 //});
+
+//gets matching artists
+// app.getArtist = function(artist, type) {
+// 	$.ajax({
+// 		url: "https://api.spotify.com/v1/search",
+// 		method: "GET",
+// 		dataType: "json",
+// 		data: {
+// 			type: 'artist',
+// 			q: artist
+// 		},
+// 		success: handleSuccess,
+// 		error: handleError
+// 	});
+// };
+
+app.getArtist = function(artist) {
+	$.ajax({
+		method: "GET",
+		url: "/songify/" + artist
+		//data: artist,
+
+		//success: handleSuccess,
+		//error: handleError
+	}).done(function(data) {
+		console.log(data.artistId);
+		id = data.artistId;
+		app.searchArtist(id);
+	});
+};
 
 //gets artist albums
 app.searchArtist = function(id) {
@@ -67,7 +102,8 @@ app.generatePlaylist = function(songIds) {
 
 	//$('.playlist').append('<iframe src="https://open.spotify.com/embed?uri=spotify:trackset:My Playlist:' + songIds + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>');
 	const baseUrl = 'https://embed.spotify.com/?theme=white&uri=spotify:trackset:My Playlist:';
-	$('.playlist').append(`<iframe src="${baseUrl + songIds}" height="400"></iframe>`);
+	$('.playlist').append(`<iframe src="${baseUrl + songIds}" height="500" frameborder="0" allowtransparency="true"></iframe>`);
+
 };
 
 //tracks from album
@@ -113,12 +149,17 @@ function searchError(e) {
 }
 
 //data from artist search
-function handleSuccess(json) {
+function handleSuccess(json, type) {
 	artistData = json;
 	id = json.artists.items[0].id;
 	//console.log(artistData);
 	console.log(id);
+	if (type == "topten") {
+		console.log("hit conditional");
+		//app.getTopTen(id);
+	} else {
 	app.searchArtist(id);
+	}
 }
 
 function handleError(e) {
