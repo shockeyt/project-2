@@ -25,12 +25,13 @@ function getArtistIds (req, res, next) {
 		console.log('error: ', error);
 		console.log('statusCode:', response && response.statusCode);
 		var parseBody = JSON.parse(body);
-
+		//create new search
 		var newSearch = new db.Search({
 			name: parseBody.artists.items[0].name,
 			trackId: parseBody.artists.items[0].id,
 			genres: parseBody.artists.items[0].genres
 		});
+		//save search to overall search DB
 		newSearch.save(function (err, search){
 			if (err) {
 				return console.log("save error: ", err);
@@ -38,10 +39,10 @@ function getArtistIds (req, res, next) {
 			console.log("saved", search);
 			//res.json(search);
 		});
-
+		//find current user
 		db.User.findOne({ _id: userId }, function (err, user) {
 			user.searchHistory = newSearch;
-		
+			//save new search to current user DB
 			user.save(function (err, savedSearch) {
 				if (err) {
 					return console.log(err);
@@ -61,6 +62,13 @@ function getArtistIds (req, res, next) {
 	});
 }
 
+function userSearchData (req, res, next) {
+	var userId = req.user._id;
+
+	db.User.findOne({ _id: userId }, function (err, user) {
+		res.json(user.searchHistory);
+	});
+}
 // function postArtistIds (req, res) {
 // 	var artist = req.params.artist;
 // 	request("https://api.spotify.com/v1/search?q=" + artist + "&type=artist", function(error, response, body) {
@@ -130,6 +138,7 @@ module.exports = {
   getArtistIds: getArtistIds,
   //postArtistIds: postArtistIds,
   getSearches: getSearches,
+  userSearchData: userSearchData,
   getOneSearch: getOneSearch,
   postSearch: postSearch,
   deleteSearch: deleteSearch

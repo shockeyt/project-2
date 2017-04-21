@@ -56,6 +56,9 @@ router.route('/searches/:id')
  router.route('/user')
    .get(usersController.userData)
 
+ router.route('/mysearches')
+   .get(authenticatedUser, artistsController.userSearchData)
+
 // router.get('/', function (req, res) {
 // 	res.json({message: 'hello world'});
 // });
