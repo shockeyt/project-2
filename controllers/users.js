@@ -29,7 +29,9 @@ function postLogin(request, response, next) {
 		failureRedirect: '/login',
 		failureFlash: true
 	});
+  //console.log(request.user);
 	return loginStrategy(request, response, next);
+
 }
 
 // GET /logout
@@ -41,14 +43,18 @@ function getLogout(request, response, next) {
 // Restricted page
 function secret(request, response, next){
 	response.json("secrets sink ships...");
+  console.log(request.user._id);
 }
 
 //get user data
-function userData(request, response){
+function userData(request, response, next){
   db.User.find({}, function(err, users) {
     //var parseUser = JSON.parse(users);
     response.json(users);
   });
+  //console.log(response.locals.currentUser);
+
+
 }
 
 module.exports = {

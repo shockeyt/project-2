@@ -7,7 +7,7 @@ var User = mongoose.Schema({
     email        : String,
     password     : String,
   },
-  //searchHistory: [ Search.schema ]
+  searchHistory: [ Search.schema ]
 });
 
 //hashes password and saves as encrypted

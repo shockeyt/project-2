@@ -16,8 +16,9 @@ var db = require('../models');
 
 
 
-function getArtistIds (req, res) {
-	//var artistId = req.body;
+function getArtistIds (req, res, next) {
+	var userId = req.user._id;
+	console.log("user id is:", userId);
 	console.log(req.params.artist);
 	var artist = req.params.artist;
 	request("https://api.spotify.com/v1/search?q=" + artist + "&type=artist", function(error, response, body) {
@@ -37,6 +38,18 @@ function getArtistIds (req, res) {
 			console.log("saved", search);
 			//res.json(search);
 		});
+
+		db.User.findOne({ _id: userId }, function (err, user) {
+			user.searchHistory = newSearch;
+		
+			user.save(function (err, savedSearch) {
+				if (err) {
+					return console.log(err);
+				}
+				console.log('saved ' + savedSearch);
+			});
+		});
+		
 
 		console.log(parseBody.artists.items[0]);
 		id = {artistId: parseBody.artists.items[0].id};

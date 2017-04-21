@@ -45,8 +45,8 @@ router.route('/songify/:artist')
   //.post(artistsController.postArtistIds)
 
 router.route('/searches')
-  .get(artistsController.getSearches)
-  //.post(artistsController.postArtistIds)
+  .get(authenticatedUser, artistsController.getSearches)
+  //.post(authenticatedUser, artistsController.postSearch)
   .post(artistsController.postSearch)
 
 router.route('/searches/:id')

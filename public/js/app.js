@@ -27,7 +27,8 @@ app.init = function () {
 		//console.log("topten button clicked");
 		var artist = $('input[type=search').val();
 		console.log(artist);
-
+		$('iframe').remove();
+		$('#button4').remove();
 		app.getArtist(artist, "topten");
 	});
 	//get related artists button
@@ -36,11 +37,18 @@ app.init = function () {
 		//console.log("topten button clicked");
 		var artist = $('input[type=search').val();
 		console.log(artist);
-
+		$('iframe').remove();
+		$('#button4').remove();
 		app.getArtist(artist, "related");
 	});
-	//clear playlist button
-
+	
+	//user data
+	$.ajax({
+		method: "GET",
+		url: "/user"
+	}).done(function(data) {
+		console.log(data);
+	});
 
 };
 
