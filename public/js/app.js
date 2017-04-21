@@ -57,20 +57,20 @@ app.init = function () {
 
 app.renderArtist = function(index) {
 	//var artistList = buildHtml(index);
-
-  var artistHtml =
+  $('.userDiv').append(
+  //var artistHtml =
   "        <!-- one artist -->" +
-  "        <div class='row album' data-album-id='" + index.trackId + "'>" +
+  "        <div class='row artist' data-artist-id='" + index.trackId + "'>" +
   "          <div class='col-md-10 col-md-offset-1'>" +
   "            <div class='panel panel-default'>" +
   "              <div class='panel-body'>" +
-  "              <!-- begin album internal row -->" +
+  "              <!-- begin artist internal row -->" +
   "                <div class='row'>" +
   "                  <div class='col-md-9 col-xs-12'>" +
   "                    <ul class='list-group'>" +
   "                      <li class='list-group-item'>" +
   "                        <h4 class='inline-header'>Artist Name:</h4>" +
-  "                        <span class='album-name'>" + index.name + "</span>" +
+  "                        <span class='artist-name'>" + index.name + "</span>" +
   "                      </li>" +
   "                      <li class='list-group-item'>" +
   "                        <h4 class='inline-header'>Genres:</h4>" +
@@ -83,7 +83,7 @@ app.renderArtist = function(index) {
   "                    </ul>" +
   "                  </div>" +
   "                </div>" +
-  "                <!-- end of album internal row -->" +
+  "                <!-- end of artist internal row -->" +
 
   "              </div>" + // end of panel-body
 
@@ -94,10 +94,16 @@ app.renderArtist = function(index) {
 
   "            </div>" +
   "          </div>" +
-  "          <!-- end one album -->";
+  "          <!-- end one artist -->");
 
   //render user data to page
-  $('.userDiv').append(artistHtml);
+  //$('.userDiv').append(artistHtml);
+
+  	$('.delete-search').last().on('click', function(e) {
+		e.preventDefault();
+		console.log("delete button clicked");
+		$(this).closest('.artist').remove();
+	});
 };
 
 //app.topTen = function () {
