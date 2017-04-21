@@ -45,11 +45,59 @@ app.init = function () {
 	//user data
 	$.ajax({
 		method: "GET",
-		url: "/user"
+		url: "/userpage/searches"
 	}).done(function(data) {
 		console.log(data);
+		data.forEach(function(index) {
+			app.renderArtist(index);
+		});
 	});
 
+};
+
+app.renderArtist = function(index) {
+	//var artistList = buildHtml(index);
+
+  var artistHtml =
+  "        <!-- one artist -->" +
+  "        <div class='row album' data-album-id='" + index.trackId + "'>" +
+  "          <div class='col-md-10 col-md-offset-1'>" +
+  "            <div class='panel panel-default'>" +
+  "              <div class='panel-body'>" +
+  "              <!-- begin album internal row -->" +
+  "                <div class='row'>" +
+  "                  <div class='col-md-9 col-xs-12'>" +
+  "                    <ul class='list-group'>" +
+  "                      <li class='list-group-item'>" +
+  "                        <h4 class='inline-header'>Artist Name:</h4>" +
+  "                        <span class='album-name'>" + index.name + "</span>" +
+  "                      </li>" +
+  "                      <li class='list-group-item'>" +
+  "                        <h4 class='inline-header'>Genres:</h4>" +
+  "                        <span class='artist-name'>" +  index.genres + "</span>" +
+  "                      </li>" +
+  "                      <li class='list-group-item'>" +
+  "                        <h4 class='inline-header'>Spotify ID:</h4>" +
+  "                        <span class='artist-name'>" +  index.trackId + "</span>" +
+  "                      </li>" +
+  "                    </ul>" +
+  "                  </div>" +
+  "                </div>" +
+  "                <!-- end of album internal row -->" +
+
+  "              </div>" + // end of panel-body
+
+  "               <div class='panel-footer'>" +
+  "               <button class='btn btn-danger delete-search'>Delete</button>" +
+  "               </div>" +
+  "              </div>" +
+
+  "            </div>" +
+  "          </div>" +
+  "          <!-- end one album -->";
+
+  //render user data to page
+  $('.userDiv').append(artistHtml);
 };
 
 //app.topTen = function () {

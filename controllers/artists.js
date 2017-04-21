@@ -41,7 +41,7 @@ function getArtistIds (req, res, next) {
 		});
 		//find current user
 		db.User.findOne({ _id: userId }, function (err, user) {
-			user.searchHistory = newSearch;
+			user.searchHistory.push(newSearch);
 			//save new search to current user DB
 			user.save(function (err, savedSearch) {
 				if (err) {
@@ -66,6 +66,7 @@ function userSearchData (req, res, next) {
 	var userId = req.user._id;
 
 	db.User.findOne({ _id: userId }, function (err, user) {
+		console.log(user.searchHistory);
 		res.json(user.searchHistory);
 	});
 }

@@ -40,6 +40,11 @@ router.route('/songify')
   //login to access this page
   //.get(authenticatedUser, staticsController.appPage);
 
+router.route('/userpage')
+  .get(staticsController.userPage)
+router.route('/userpage/searches')
+  .get(authenticatedUser, artistsController.userSearchData)
+
 router.route('/songify/:artist')
   .get(artistsController.getArtistIds)
   //.post(artistsController.postArtistIds)
@@ -57,7 +62,7 @@ router.route('/searches/:id')
    .get(usersController.userData)
 
  router.route('/mysearches')
-   .get(authenticatedUser, artistsController.userSearchData)
+   //.get(authenticatedUser, artistsController.userSearchData)
 
 // router.get('/', function (req, res) {
 // 	res.json({message: 'hello world'});
