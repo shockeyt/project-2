@@ -1,4 +1,5 @@
 var passport = require("passport");
+var db = require('../models');
 
 // GET /signup
   function getSignup(request, response, next) {
@@ -42,11 +43,24 @@ function secret(request, response, next){
 	response.json("secrets sink ships...");
 }
 
+//get user data
+function userData(request, response){
+  db.User.find({}, function(err, users) {
+    //var parseUser = JSON.parse(users);
+    response.json(users);
+  });
+}
+
 module.exports = {
   getLogin: getLogin,
   postLogin: postLogin ,
   getSignup: getSignup,
   postSignup: postSignup,
   getLogout: getLogout,
-  secret: secret
+  secret: secret,
+  userData: userData
 };
+
+
+
+

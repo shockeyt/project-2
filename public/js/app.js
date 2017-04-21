@@ -9,6 +9,7 @@ var albumData = {};
 
 
 app.init = function () {
+	//get album button
 	$('form').on('submit', function(e) {
 		e.preventDefault();
 		//alert('submit clicked');
@@ -20,7 +21,7 @@ app.init = function () {
 
 		app.getArtist(artist, "album");
 	});
-
+	//get top ten button
 	$('#button2').on('click', function(e) {
 		e.preventDefault();
 		//console.log("topten button clicked");
@@ -29,7 +30,7 @@ app.init = function () {
 
 		app.getArtist(artist, "topten");
 	});
-
+	//get related artists button
 	$('#button3').on('click', function(e) {
 		e.preventDefault();
 		//console.log("topten button clicked");
@@ -38,6 +39,9 @@ app.init = function () {
 
 		app.getArtist(artist, "related");
 	});
+	//clear playlist button
+
+
 };
 
 //app.topTen = function () {
@@ -133,6 +137,17 @@ app.generatePlaylist = function(songIds) {
 	//$('.playlist').append('<iframe src="https://open.spotify.com/embed?uri=spotify:trackset:My Playlist:' + songIds + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>');
 	const baseUrl = 'https://embed.spotify.com/?theme=white&uri=spotify:trackset:My Playlist:';
 	$('.playlist').append(`<iframe src="${baseUrl + songIds}" height="500" frameborder="0" allowtransparency="true"></iframe>`);
+	$('.clearButton').append('<button type="reset" id="button4" class="btn btn-default clear">Clear</button>');
+	$('#button4').on('click', function(e) {
+		e.preventDefault();
+		console.log("clear button clicked");
+		//$('.player').remove();
+		$('iframe').remove();
+		$('#button4').remove();
+		//$('.playlist').reset();
+		$('form').trigger("reset");
+
+	});
 
 };
 

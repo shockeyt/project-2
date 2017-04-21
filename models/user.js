@@ -1,11 +1,13 @@
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
+var Search = require('./search');
 
 var User = mongoose.Schema({
   local : {
     email        : String,
     password     : String,
-  }
+  },
+  //searchHistory: [ Search.schema ]
 });
 
 //hashes password and saves as encrypted

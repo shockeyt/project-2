@@ -53,6 +53,9 @@ router.route('/searches/:id')
   .get(artistsController.getOneSearch)
   .delete(artistsController.deleteSearch)
 
+ router.route('/user')
+   .get(usersController.userData)
+
 // router.get('/', function (req, res) {
 // 	res.json({message: 'hello world'});
 // });
