@@ -32,15 +32,15 @@ app.init = function () {
 		app.getArtist(artist, "topten");
 	});
 	//get related artists button
-	$('#button3').on('click', function(e) {
-		e.preventDefault();
-		//console.log("topten button clicked");
-		var artist = $('input[type=search').val();
-		console.log(artist);
-		$('iframe').remove();
-		$('#button4').remove();
-		app.getArtist(artist, "related");
-	});
+	// $('#button3').on('click', function(e) {
+	// 	e.preventDefault();
+	// 	//console.log("topten button clicked");
+	// 	var artist = $('input[type=search').val();
+	// 	console.log(artist);
+	// 	$('iframe').remove();
+	// 	$('#button4').remove();
+	// 	app.getArtist(artist, "related");
+	// });
 	
 	//user data
 	$.ajax({
@@ -256,13 +256,13 @@ app.getTopTen = function(id, type) {
 		//var compileTracks = [];
 		if (type == "related") {
 			console.log("related condition hit");
-			tenTracks.forEach(function(tracks) {
-				compileTracks.push(tracks.id);
-				// compileSingles.forEach(function(singles) {
-				// compileTracks.push(trackIds[0]);
-				// });
+			// tenTracks.forEach(function(tracks) {
+			// 	compileTracks.push(tracks.id);
+			// 	// compileSingles.forEach(function(singles) {
+			// 	// compileTracks.push(trackIds[0]);
+			// 	// });
 			
-			});
+			// });
 			//var songIds = trackIds.toString();
 			//console.log("compiled ids are: ", compileTracks);
 		} else {
