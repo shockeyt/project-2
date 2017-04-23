@@ -70,6 +70,45 @@ function userSearchData (req, res, next) {
 		res.json(user.searchHistory);
 	});
 }
+
+function deleteSearchData (req, res, next) {
+	var userId = req.user._id;
+	var songId = req.params.searchId;
+	console.log("params are: ", songId);
+
+	var searchHist = req.user.searchHistory;
+	var searchArray = [];
+	searchHist.forEach(function (tracks) {
+		searchArray.push(tracks.trackId);
+	});
+	console.log("user track ids are: ", searchArray);
+	//console.log(req.body);
+
+
+	db.User.findOne({ _id: userId }, function (err, user) {
+		//if (user.searchHistory._id === res.
+		user.searchHistory.forEach(function(track, index) {
+			if (track.trackId === songId) {
+				console.log("match found");
+				user.searchHistory.splice(index, 1);
+				user.save();
+				// db.User.deleteOne(tracks, function(err, deletedSong) {
+				// 	console.log("test");
+				// 	console.log(deletedSong);
+				// 	res.json(deletedSong);
+				// });
+				//res.json("deleted: ", tracks.trackId);	
+			} else {
+				console.log("not a match");
+			}
+		});
+
+		
+		
+	});
+}
+
+
 // function postArtistIds (req, res) {
 // 	var artist = req.params.artist;
 // 	request("https://api.spotify.com/v1/search?q=" + artist + "&type=artist", function(error, response, body) {
@@ -122,6 +161,23 @@ function postSearch (req, res) {
 	});
 }
 
+function editOneSearch (req, res) {
+	var id = req.params.id;
+
+	db.Search.findOne({_id: id}, function(err, search) {
+		if (err) res.json({message: 'find error: ' + err});
+		if (req.body.name) search.name = req.body.name;
+		if (req.body.trackId) search.trackId = req.body.trackId;
+		if (req.body.genres) search.genres = req.body.genres;
+
+		search.save(function(err) {
+			if (err) res.json({message: 'could not update'});
+			res.json({message: 'search updated'});
+		});
+	});
+
+}
+
 function deleteSearch (req, res) {
 	var searchId = req.params.id;
 	console.log(searchId);
@@ -140,8 +196,10 @@ module.exports = {
   //postArtistIds: postArtistIds,
   getSearches: getSearches,
   userSearchData: userSearchData,
+  deleteSearchData: deleteSearchData,
   getOneSearch: getOneSearch,
   postSearch: postSearch,
+  editOneSearch: editOneSearch,
   deleteSearch: deleteSearch
 };
 

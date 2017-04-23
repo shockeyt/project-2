@@ -44,18 +44,21 @@ router.route('/userpage')
   .get(staticsController.userPage)
 router.route('/userpage/searches')
   .get(authenticatedUser, artistsController.userSearchData)
+router.route('/userpage/searches/:searchId')
+  .delete(authenticatedUser, artistsController.deleteSearchData)
 
 router.route('/songify/:artist')
   .get(artistsController.getArtistIds)
   //.post(artistsController.postArtistIds)
 
 router.route('/searches')
-  .get(authenticatedUser, artistsController.getSearches)
+  .get(artistsController.getSearches)
   //.post(authenticatedUser, artistsController.postSearch)
   .post(artistsController.postSearch)
 
 router.route('/searches/:id')
   .get(artistsController.getOneSearch)
+  .put(artistsController.editOneSearch)
   .delete(artistsController.deleteSearch)
 
  router.route('/user')

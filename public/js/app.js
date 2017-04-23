@@ -96,13 +96,23 @@ app.renderArtist = function(index) {
   "          </div>" +
   "          <!-- end one artist -->");
 
-  //render user data to page
-  //$('.userDiv').append(artistHtml);
 
+  	//deletes a single search
   	$('.delete-search').last().on('click', function(e) {
 		e.preventDefault();
 		console.log("delete button clicked");
+		var searchId = $(this).parents('.artist').data('artist-id');
+		console.log(searchId);
+		var deleteSong = $(this).parents('.artist');
 		$(this).closest('.artist').remove();
+		$.ajax({
+			method: "DELETE",
+			url: "/userpage/searches/" + searchId,
+			//: "json",
+			//data: searchId
+		}).done(function(data) {
+			console.log("search id is :", data);
+		});
 	});
 };
 
