@@ -1,4 +1,4 @@
-## Project 2
+# Project 2
 
 # Songify (Spotify Playlist Generator)
 
@@ -6,9 +6,12 @@
 
 # [Link to my Trello](https://trello.com/b/byU4w5qV/project-2)
 
-Wireframe
+## Wireframe
+
 ![](project2wireframe.JPG)
-Bootstrap Mochup
+
+## Bootstrap Mochup
+
 ![](mochwireframe.png)
 
 # Using the App
@@ -18,12 +21,12 @@ If you click on 'My Searches', all the previous artist searches you have made wi
 
 # Route map
 
-('/') Home page
-('/signup') Create a new account
-('/login') Login to account
-('/songify') App page
-('/userpage') Current user's searches
-('/searches') Overall DB search history (json data)
+* ('/') Home page
+* ('/signup') Create a new account
+* ('/login') Login to account
+* ('/songify') App page
+* ('/userpage') Current user's searches
+* ('/searches') Overall DB search history (json data)
 
 # April 18th
 After extensive testing of the Spotify API, I decided to use it to make a music app.  I started by building an initial basic server.  I used some hard coded test data and built some REST routes to test the data in the database.  After that, I started on building the passport login side of the server.
@@ -54,9 +57,9 @@ Added some basic CSS styling with bootstrap integration.
 Added a background image.
 
 # Stretch goals:
-Add a related artist playlist
-Add a playlist by searching with tempo
-Get app working on mobile
-Add CSS animation for loading playlists
+* Add a related artist playlist
+* Add a playlist by searching with tempo
+* Get app working on mobile
+* Add CSS animation for loading playlists
 
 
