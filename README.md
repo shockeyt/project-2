@@ -1,100 +1,62 @@
-# ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Project #2: Building Your First Full-stack Application
+## Project 2
 
-#### Overview
+# Songify (Spotify Playlist Generator)
 
-This second project is your first foray into **building a full-stack application.** You'll be **building a Node app,** which means you'll learn about what it takes to build a functional application from the ground up yourself.
+# [Link to the App](https://stormy-waters-85109.herokuapp.com/)
 
-**This is exciting!** It's a lot, but we'll give you the tools over the next couple weeks to be able build what you need, and you get to decide what you do with it. And you get to be creative in choosing what sort of application you want to build!
+# [Link to my Trello](https://trello.com/b/byU4w5qV/project-2)
 
-**You will be working individually for this project**, and you'll be designing the app yourself. We hope you'll exercise creativity on this project, sketch some wireframes before you start, and write user stories to define what your users will want to do with the app. Make sure you have time to run these ideas by your instructors to get their feedback before you dive too deep into code! Remember to keep things small and focus on mastering the fundamentals – scope creep/feature creep is the biggest pitfall for any project!
+Wireframe
+![](project2wireframe.JPG)
+Bootstrap Mochup
+![](mochwireframe.png)
 
----
+# Using the App
 
-#### Requirements
+Songify allows a Spotify user to generate a simple playlist by using one search parameter.  The app needs user credentials to access the app page.  Create a login by entering your email address and a password.  Once logged in, navigate to the app page by clicking on the 'Get Music' link.  Type in a single artist name, then select either 'Album' or 'Top Ten'.  Album will generate the most popular album by the artist (using Spotify stats).  Top Ten will generate the 10 most popular songs by the artist.  You can clear the playlist after each use.
+If you click on 'My Searches', all the previous artist searches you have made will be listed along with their Spotify track Id and genre tags.  Hit the delete button to delete any search and remove it from your account.
 
-Your app must:
+# Route map
 
-* **Have at _least_ 2 models** (more if they make sense) – one representing someone using your application, and one that represents the main functional idea for your app
-* **Have at _least_ 2 software unit tests** using Mocha and Chai
-* **Interface** with a 3rd Party Web API of your choosing
-* **Include sign up/log in functionality**, with encrypted passwords & an authorization flow
-* **Have complete RESTful routes** for at least one of your resources with GET, POST, PUT, and DELETE
-* **Utilize Mongo to create a database structure** and interact with your JSON-like data
-* **Include wireframes** that you designed during the planning process
-* Have **semantically clean HTML and CSS**
-* **Be deployed online** and accessible to the public
+('/') Home page
+('/signup') Create a new account
+('/login') Login to account
+('/songify') App page
+('/userpage') Current user's searches
+('/searches') Overall DB search history (json data)
 
----
+# April 18th
+After extensive testing of the Spotify API, I decided to use it to make a music app.  I started by building an initial basic server.  I used some hard coded test data and built some REST routes to test the data in the database.  After that, I started on building the passport login side of the server.
+It was challenging integrating the server with passport because of all the subfolders and required files.  I worked on going file by file and comparing what needed to be added and required.
+I ended the day by getting a single AJAX request to Spotify working by getting an artist's Id.
 
-#### Necessary Deliverables
+# April 19th
+Heavy API routing all day.  In order to generate a Spotify playlist, I had to get a comma separated list of track Ids to embed into an iFrame player.  First had to get an artist's Id, then get an album from the artist, then get all the tracks from that album, and then package those into the player.  I was able to get this working after extensive testing.
 
-* A **working full-stack application, built by you**, hosted somewhere on the internet
-* A **link to your hosted working app** in the URL section of your GitHub repo
-* A **git repository hosted on GitHub**, with a link to your hosted project,  and frequent commits dating back to the **very beginning** of the project. Commit early, commit often.
-* **A ``readme.md`` file** with explanations of the technologies used, the approach taken, installation instructions, unsolved problems, etc.
-* **Wireframes of your app**, hosted somewhere & linked in your readme
-* A link in your ``readme.md`` to the publicly-accessible **user stories you created**
+# April 20th
+Moved some routes to the server side to send artist Id's back to the front for different requests.  This was needed to create a different type of request for a top ten playlist.  
+Challenge: getting conditionals set up to send a route's data to a different function on success.  It involved passing in additonal callback parameters into the previous functions.
+Got basic search data into the database, including searching by id in Postman.
+Other REST routes were setup on the server side (delete, post, put).
 
----
+# April 21st
+Added a clear button to remove a playlist after generating it.  Works for both top ten and album playlists.
+Challenge: getting user data to save searches.  Found out that adding authentication to the route gives me user data (through the next callback).  After that, I created the user model to add the search schema to the database.
+Added the searches to a userpage that appends them with html.
+Created a delete button to remove a search from the page, however it won't delete from the database yet.
 
-#### Suggested Ways to Get Started
+# April 23rd
+Finally got delete to remove a search from a user's database.  Needed to use splice after matching the trackId with the user database song id.
+Got heroku deployed with no major issues.
+Worked a while on the hamburger menu issues in bootstrap.
+Challenge: Sourcing metadata and jquery for bootstrap was a challenge because our examples had 3 different ways to do it.  Ended up adding more meta tags on the header partial and on the app and user page.
+Added some basic CSS styling with bootstrap integration.
+Added a background image.
 
-* **Begin with the end in mind.** Know where you want to go by planning with wireframes & user stories, so you don't waste time building things you don't need
-* **Don’t hesitate to write throwaway code to solve short term problems**
-* **Read the docs for whatever technologies you use.** Most of the time, there is a tutorial that you can follow, but not always, and learning to read documentation is crucial to your success as a developer
-* **Commit early, commit often.** Don’t be afraid to break something because you can always go back in time to a previous version.
-* **User stories define what a specific type of user wants to accomplish with your application**. It's tempting to just make them _to-do lists_ for what needs to get done, but if you keep them small & focused on what a user cares about from their perspective, it'll help you know what to build
-* **Write pseudocode before you write actual code.** Thinking through the logic of something helps.
-
----
-
-#### Potential Project Ideas
-
-##### Cheerups
-The world is a depressing place.
-
-Your task is to create an app that will allow people to create and share "cheerups" - happy little quips to brighten other people's' days. Cheerups will be small - limited to 139 characters. Members will be able to promote Cheerups that they like and maybe even boost the reputation of the Cheerupper.
-
-##### Bookmarket
-You will create an application where users can bookmark links they want to keep.
-
-But what if users could trade bookmarks for other bookmarks? Or sell bookmarks for points? Or send bookmarks to your friends. Or something even crazier.
-
-##### Photo sharing app
-Users will be able to register and create albums and photos. Albums and photos will need to be named and described by their owners. Users will be able to view other user's' albums. Maybe users can comment on photos, or either up/down vote them.
-
----
-
-### Useful Resources
-
-* **[Heroku](http://www.heroku.com)** _(for hosting your back-end)_
-* **[Writing Good User Stories](http://www.mariaemerson.com/user-stories/)** _(for a few user story tips)_
-* **[Presenting Information Architecture](http://webstyleguide.com/wsg3/3-information-architecture/4-presenting-information.html)** _(for more insight into wireframing)_
-
----
-
-#### Project Feedback + Evaluation
-
-There are several requirements in the Project 2 rubric. Your instructors will score each of your requirements below using this scale:
-
-    Score | Expectations
-    ----- | ------------
-    **0** | _Incomplete._
-    **1** | _Does not meet expectations._
-    **2** | _Meets expectations, good job!_
-    **3** | _Exceeds expectations, you wonderful creature, you!_
-
- This will serve as a helpful overall gauge of whether you met the project goals, but __the more important scores are the individual ones__ above, which can help you identify where to focus your efforts for the next project!
+# Stretch goals:
+Add a related artist playlist
+Add a playlist by searching with tempo
+Get app working on mobile
+Add CSS animation for loading playlists
 
 
-* __Project Workflow__: Did you complete the user stories, wireframes, task tracking, and/or ERDs, as specified above? Did you use source control as expected for the phase of the program you’re in (detailed above)?
-
-* __Technical Requirements__: Did you deliver a project that met all the technical requirements? Given what the class has covered so far, did you build something that was reasonably complex?
-
-* __Creativity__: Did you add a personal spin or creative element into your project submission? Did you deliver something of value to the end user (not just a login button and an index page)?
-
-* __Code Quality__: Did you follow code style guidance and best practices covered in class, such as spacing, modularity, and semantic naming? Did you comment your code as your instructors have in class?
-
-* __Deployment__: Did you deploy your application to a public url using GitHub Pages?
-
-* __Professional Development__: Did you demonstrates ability to communicate and collaborate with others in the classroom and/or on a team? Did you treat your peers, teammates, instructors with respect, make and follow agreements, and maintain a growth mindset?
