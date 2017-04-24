@@ -208,8 +208,8 @@ app.generatePlaylist = function(songIds) {
 
 	//$('.playlist').append('<iframe src="https://open.spotify.com/embed?uri=spotify:trackset:My Playlist:' + songIds + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>');
 	const baseUrl = 'https://embed.spotify.com/?theme=white&uri=spotify:trackset:My Playlist:';
-	$('.playlist').append(`<iframe src="${baseUrl + songIds}" height="500" frameborder="0" allowtransparency="true"></iframe>`);
-	$('.clearButton').append('<button type="reset" id="button4" class="btn btn-default clear">Clear</button>');
+	$('.playlist').append(`<iframe src="${baseUrl + songIds}" height="380" frameborder="0" allowtransparency="true"></iframe>`);
+	$('.clearButton').append('<button type="reset" id="button4" class="btn btn-danger clear">Clear</button>');
 	$('#button4').on('click', function(e) {
 		e.preventDefault();
 		console.log("clear button clicked");

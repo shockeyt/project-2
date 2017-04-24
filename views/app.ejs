@@ -21,29 +21,41 @@
 	<% include ./partials/header.ejs %>
 
 	
-	
-	<h1>You're on the APP page</h1>
-	<!-- SEARCH FORM -->
-	<form>
-		<fieldset>
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="Album Create">Create Album</label>
-			<input type="search" class="form-control input-md" placeholder="search">	
+<div class="container-fluid">
+	<div class="container">
+		<div class="row titleRow">
+			<div class="col-md-12">
+			<h2>Generate A Playlist</h2>
+			</div>
 		</div>
-		<button type="submit" id="button1" class="btn btn-default">Album</button>
-		<button type="button" id="button2" class="btn btn-default topten">Top Ten</button>
-		<!-- <button type="button" id="button3" class="btn btn-default related">Related</button> -->
-		</fieldset>
-	</form>
-
-	<!-- GENERATE PLAYLIST -->
-	<div class="player">
-		<div class="playlist">
-			<!-- <iframe src="https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:3rgsDhGHZxZ9sB9DQWQfuf" width="300" height="380" frameborder="0" allowtransparency="true"></iframe> -->
-		</div>
-		<div class="clearButton">		
+		<div class="row">
+			<div class="col-md-6">
+				<!-- SEARCH FORM -->
+				<form>
+					<fieldset>
+					<div class="form-group">
+						<!-- <label class="col-md-4 control-label" for="Album Create">Create Album</label> -->
+						<input type="search" class="form-control input-md" placeholder="search">	
+					</div>
+					<button type="submit" id="button1" class="btn btn-default">Album</button>
+					<button type="button" id="button2" class="btn btn-default topten">Top Ten</button>
+					<!-- <button type="button" id="button3" class="btn btn-default related">Related</button> -->
+					</fieldset>
+				</form>
+			</div>
+			<div class="col-md-6">
+				<!-- GENERATE PLAYLIST -->
+				<div class="player">
+					<div class="playlist">
+						<!-- <iframe src="https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:3rgsDhGHZxZ9sB9DQWQfuf" width="300" height="380" frameborder="0" allowtransparency="true"></iframe> -->
+					</div>
+					<div class="clearButton">		
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
+</div>
 	<% include ./partials/footer.ejs %>
 </body>
 </html>

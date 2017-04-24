@@ -26,7 +26,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Songify</a>
+          <!-- <a class="navbar-brand" href="/">Songify</a> -->
+          <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-headphones" aria-hidden="true"></span></a>
         </div>
 
 
@@ -34,7 +35,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-              <li class="active"><a href="/userpage">My Searches <span class="sr-only">(current)</span></a></li>
+              <li class="active"><a href="/songify">Get Music</a></li>
+              <li><a href="/userpage">My Searches <span class="sr-only">(current)</span></a></li>
             <% if (currentUser) {%>
               <li><a href="/logout">Logout <%= currentUser.local.email %></a></li>
             <% } else { %>
@@ -48,4 +50,4 @@
     
 
 
-    <main class="container">
+    <main class="container titlepic">

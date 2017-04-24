@@ -1,3 +1,15 @@
+/*.jumbotron {
+	background-image: url(/images/record player.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}*/
+
+/*main {
+	background-image: url(./images/record player.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}*/
+
 /*.playlist {
 	align-items: center;
 	display: flex;

@@ -1,0 +1,75 @@
+body {
+	background-color: #5E6369;
+}
+
+.titlepic {
+	display: block;
+	margin-top: 20px;
+}
+.mainpic {
+	background-image: url(/images/recordplayer.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 630px;	
+}
+.jumbotron {
+	height: 150px;
+}
+
+.banner {
+	height: 115px;
+	background-color: lightgrey;
+}
+.welcome {
+	display: table;
+	margin: 0 auto;
+	text-align: center;
+
+}
+h1 {
+	font-size: 70px;
+	margin-top: 0px;
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+	color: white;
+	font-size: 50px;
+}
+
+.titleRow {
+	display: block;
+	height: 150px;
+	margin: 0 auto;
+}
+
+.col-md-6 {
+	padding: 30px;
+}
+
+a {
+	font-size: 16px;
+}
+
+.playlist {
+	display: table;
+	margin: 0 auto;
+}
+.clearButton {
+	text-align: center;
+}
+
+.glyphicon {
+	font-size: 30px;
+	color: black;
+}
+.navbar-brand {
+	padding-top: 10px;
+}
+
+.inline-header {
+  display: inline-block;
+  vertical-align: baseline;
+  margin-right: 12px;
+}
