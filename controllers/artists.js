@@ -1,21 +1,9 @@
 var request = require('request');
 var db = require('../models');
-// app.getArtist = function(artist, type) {
-// 	$.ajax({
-// 		url: "https://api.spotify.com/v1/search",
-// 		method: "GET",
-// 		dataType: "json",
-// 		data: {
-// 			type: 'artist',
-// 			q: artist
-// 		},
-// 		success: handleSuccess,
-// 		error: handleError
-// 	});
-// };
 
 
 
+//GET ids and send to front end
 function getArtistIds (req, res, next) {
 	var userId = req.user._id;
 	console.log("user id is:", userId);
@@ -62,6 +50,7 @@ function getArtistIds (req, res, next) {
 	});
 }
 
+//finds single user data search history
 function userSearchData (req, res, next) {
 	var userId = req.user._id;
 
@@ -71,6 +60,7 @@ function userSearchData (req, res, next) {
 	});
 }
 
+//removes specific search data for user
 function deleteSearchData (req, res, next) {
 	var userId = req.user._id;
 	var songId = req.params.searchId;
@@ -92,12 +82,7 @@ function deleteSearchData (req, res, next) {
 				console.log("match found");
 				user.searchHistory.splice(index, 1);
 				user.save();
-				// db.User.deleteOne(tracks, function(err, deletedSong) {
-				// 	console.log("test");
-				// 	console.log(deletedSong);
-				// 	res.json(deletedSong);
-				// });
-				//res.json("deleted: ", tracks.trackId);	
+
 			} else {
 				console.log("not a match");
 			}
@@ -132,6 +117,9 @@ function deleteSearchData (req, res, next) {
 	
 // }
 
+//****REST ROUTES FOR SEARCH DATA****
+
+//GET INDEX
 function getSearches (req, res) {
 	db.Search.find()
 	.exec(function (err, searches) {
@@ -140,12 +128,14 @@ function getSearches (req, res) {
 	});
 }
 
+//GET ONE
 function getOneSearch (req, res) {
 	db.Search.findOne({_id: req.params.id}, function(err, search) {
 		res.json(search);
 	});
 }
 
+//POST SEARCH
 function postSearch (req, res) {
 	var newSearch = new db.Search({
 		name: req.body.name,
@@ -161,6 +151,7 @@ function postSearch (req, res) {
 	});
 }
 
+//PUT SEARCH
 function editOneSearch (req, res) {
 	var id = req.params.id;
 
@@ -178,6 +169,7 @@ function editOneSearch (req, res) {
 
 }
 
+//DELETE SEARCH
 function deleteSearch (req, res) {
 	var searchId = req.params.id;
 	console.log(searchId);

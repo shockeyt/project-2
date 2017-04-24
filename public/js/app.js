@@ -4,8 +4,6 @@ var app = {};
 var artistData = {};
 var id;
 var albumData = {};
-//$(document).ready(function() {
-	//console.log("app.js loaded!");
 
 
 app.init = function () {
@@ -13,9 +11,13 @@ app.init = function () {
 	$('form').on('submit', function(e) {
 		e.preventDefault();
 		//alert('submit clicked');
+		$(window).keydown(function(e) {
+			if(e.keyCode == 13) {
+				e.preventDefault();
+				return true;
+			}
+		});
 
-		//serialize not working(?)
-		//var formData = $(this).serialize();
 		var artist = $('input[type=search').val();
 		console.log(artist);
 
@@ -24,6 +26,7 @@ app.init = function () {
 	//get top ten button
 	$('#button2').on('click', function(e) {
 		e.preventDefault();
+
 		//console.log("topten button clicked");
 		var artist = $('input[type=search').val();
 		console.log(artist);
@@ -31,6 +34,9 @@ app.init = function () {
 		$('#button4').remove();
 		app.getArtist(artist, "topten");
 	});
+
+	//future related button search
+
 	//get related artists button
 	// $('#button3').on('click', function(e) {
 	// 	e.preventDefault();
@@ -55,6 +61,7 @@ app.init = function () {
 
 };
 
+//render user search data into page
 app.renderArtist = function(index) {
 	//var artistList = buildHtml(index);
   $('.userDiv').append(
@@ -116,6 +123,8 @@ app.renderArtist = function(index) {
 	});
 };
 
+//future feature
+
 //app.topTen = function () {
 
 		//e.preventDefault();
@@ -139,6 +148,7 @@ app.renderArtist = function(index) {
 // 	});
 // };
 
+//gets ID for artist
 app.getArtist = function(artist, type) {
 	$.ajax({
 		method: "GET",
@@ -160,6 +170,8 @@ app.getArtist = function(artist, type) {
 		
 		
 	});
+
+	//future feature
 	// $.ajax({
 	// 	method: "POST",
 	// 	//url: "/songify/" + artist
@@ -202,11 +214,6 @@ app.searchAlbums = function(oneAlbum) {
 
 //generate a playlist
 app.generatePlaylist = function(songIds) {
-	//var baseUrl = "https://embed.spotify.com/?theme=white&uri=spotify:trackset:My Playlist:";
-	//$('.playlist').css("background-color", "blue");
-	//$('.playlist').append('iframe src="' + (baseUrl + songIds) + '" height="400"></iframe>');
-
-	//$('.playlist').append('<iframe src="https://open.spotify.com/embed?uri=spotify:trackset:My Playlist:' + songIds + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>');
 	const baseUrl = 'https://embed.spotify.com/?theme=white&uri=spotify:trackset:My Playlist:';
 	$('.playlist').append(`<iframe src="${baseUrl + songIds}" height="380" frameborder="0" allowtransparency="true"></iframe>`);
 	$('.clearButton').append('<button type="reset" id="button4" class="btn btn-danger clear">Clear</button>');
@@ -243,6 +250,7 @@ function albumSuccess(json) {
 var compileTracks = [];
 
 //var compileSingles = [];
+
 //gets artist top ten tracks
 app.getTopTen = function(id, type) {
 	$.ajax({
@@ -256,6 +264,8 @@ app.getTopTen = function(id, type) {
 		//var compileTracks = [];
 		if (type == "related") {
 			console.log("related condition hit");
+			//future feature code
+
 			// tenTracks.forEach(function(tracks) {
 			// 	compileTracks.push(tracks.id);
 			// 	// compileSingles.forEach(function(singles) {
@@ -278,7 +288,7 @@ app.getTopTen = function(id, type) {
 	});
 };
 
-
+//gets 20 related artists
 app.relatedArtists = function(id) {
 	$.ajax({
 		url: "https://api.spotify.com/v1/artists/" + id + "/related-artists",
@@ -299,6 +309,7 @@ app.relatedArtists = function(id) {
 	});
 };
 
+//search album error
 function albumError(e) {
 	console.log("search albums not working");
 }
@@ -320,6 +331,7 @@ function searchSuccess(json) {
 	app.searchAlbums(oneAlbum);
 }
 
+//search artist error
 function searchError(e) {
 	console.log("search artist not working");
 }
@@ -338,6 +350,7 @@ function handleSuccess(json, type) {
 	}
 }
 
+//response error
 function handleError(e) {
 	console.log("not working");
 }

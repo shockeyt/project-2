@@ -16,30 +16,31 @@ function authenticatedUser(req, res, next) {
 	//otherwise req is redirected to home
 	res.redirect('/');
 }
-
+//home page
 router.route('/')
   .get(staticsController.home);
-
+//create new account
 router.route('/signup')
   .get(usersController.getSignup)
   .post(usersController.postSignup)
-
+//log into account
 router.route('/login')
   .get(usersController.getLogin)
   .post(usersController.postLogin)
 
 router.route('/secret')
   .get(authenticatedUser, usersController.secret)  
-
+//log out of account
 router.route("/logout")
   .get(usersController.getLogout)
 
-
+//Playlist app page
 router.route('/songify')
   .get(staticsController.appPage);
   //login to access this page
   //.get(authenticatedUser, staticsController.appPage);
 
+//Current user search history
 router.route('/userpage')
   .get(staticsController.userPage)
 router.route('/userpage/searches')
@@ -51,6 +52,7 @@ router.route('/songify/:artist')
   .get(artistsController.getArtistIds)
   //.post(artistsController.postArtistIds)
 
+//overall search data for any user
 router.route('/searches')
   .get(artistsController.getSearches)
   //.post(authenticatedUser, artistsController.postSearch)
@@ -61,6 +63,7 @@ router.route('/searches/:id')
   .put(artistsController.editOneSearch)
   .delete(artistsController.deleteSearch)
 
+//user info
  router.route('/user')
    .get(usersController.userData)
 
@@ -71,7 +74,7 @@ router.route('/searches/:id')
 // 	res.json({message: 'hello world'});
 // });
 
-//*****REST ROUTES******
+//*****INIT SEED DATA REST ROUTES******
 
 //show all artists
 router.get('/api/artists', function (req, res) {
